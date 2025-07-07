@@ -6,7 +6,7 @@
 #include "AbilitySystem/The1001stAbilitySystemComponent.h"
 #include "AbilitySystem/The1001stAttributeSet.h"
 
-void UBaseMediator::SetParams(const FWidgetControllerParams& Params)
+void UBaseMediator::SetParams(const FMediatorParams& Params)
 {
 	PlayerController = Params.PlayerController;
 	PlayerState = Params.PlayerState;

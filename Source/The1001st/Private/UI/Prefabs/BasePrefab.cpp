@@ -3,18 +3,18 @@
 
 #include "UI/Prefabs/BasePrefab.h"
 
-void UBasePrefab::SetOwenerMediator(UObject* InOwenerMediator)
+void UBasePrefab::SetOwnerMediator(UObject* InOwnerMediator)
 {
-	if (OwenerMediator == nullptr)
+	if (InOwnerMediator == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OwenerMediator is nullptr"));
+		UE_LOG(LogTemp, Warning, TEXT("InOwnerMediator is nullptr"));
 		return;
 	}
-	if (OwenerMediator == InOwenerMediator)
+	if (OwnerMediator == InOwnerMediator)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OwenerMediator is already set to the same instance."));
+		UE_LOG(LogTemp, Warning, TEXT("OwnerMediator is already set to the same instance."));
 		return;
 	}
-	OwenerMediator = InOwenerMediator;
-	OwenerMediatorIsSetted();
+	OwnerMediator = InOwnerMediator;
+	OwnerMediatorIsSetted();
 }

@@ -15,11 +15,11 @@ class THE1001ST_API UBasePrefab : public UUserWidget
 	GENERATED_BODY()
 public:
 	UFUNCTION(BlueprintCallable, Category = "Prefab")
-	void SetOwenerMediator(UObject* InOwenerMediator);
+	void SetOwnerMediator(UObject* InOwnerMediator);
 public:
 	UPROPERTY(BlueprintReadOnly, Category = "Prefab")
-	TObjectPtr<UObject> OwenerMediator;
+	TObjectPtr<UObject> OwnerMediator;
 protected:
 	UFUNCTION(BlueprintimplementableEvent, Category = "Prefab")
-	void OwenerMediatorIsSetted();
+	void OwnerMediatorIsSetted();
 };

@@ -15,7 +15,6 @@ AThe1001stPlayerState::AThe1001stPlayerState()
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
 	AttributeSet = CreateDefaultSubobject<UThe1001stAttributeSet>(TEXT("AttributeSet"));
-
 }
 UAbilitySystemComponent* AThe1001stPlayerState::GetAbilitySystemComponent() const
 {

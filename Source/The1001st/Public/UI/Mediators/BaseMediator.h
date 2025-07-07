@@ -10,16 +10,15 @@ class UAttributeSet;
 class UAbilitySystemComponent;
 
 USTRUCT(BlueprintType)
-struct FWidgetControllerParams
+struct FMediatorParams
 {
 	// Add parameters for widget controller here
 	GENERATED_BODY()
 
-	FWidgetControllerParams(){}
-	FWidgetControllerParams(APlayerController* PC,APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
-		:PlayerController(PC), PlayerState(PS), AbilitySystemComponent(ASC), AttributeSet(AS){}
-
-
+	FMediatorParams() {}
+	FMediatorParams(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
+		:PlayerController(PC), PlayerState(PS), AbilitySystemComponent(ASC), AttributeSet(AS) {
+	}
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Mediator")
 	TObjectPtr<APlayerController> PlayerController;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mediator")
@@ -38,7 +37,7 @@ class THE1001ST_API UBaseMediator : public UObject
 	GENERATED_BODY()
 public:
 	UFUNCTION(BlueprintCallable)
-	void SetParams(const FWidgetControllerParams& Params);
+	void SetParams(const FMediatorParams& Params);
 
 protected:
 

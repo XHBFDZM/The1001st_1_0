@@ -13,6 +13,8 @@
 
 #include "Player/The1001stPlayerState.h"
 #include "AbilitySystem/The1001stAbilitySystemComponent.h"
+#include "The1001st/Public/Player/The1001stPlayerController.h"
+#include "UI/HUD/The1001stHUD.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -90,13 +92,26 @@ void AThe1001stCharacter::OnRep_PlayerState()
 
 void AThe1001stCharacter::InitAbilityInfo()
 {
-	//拿到PlayerState
+	// PlayerState构造函数初始化了ASC，AS，保存了指针
+	// ASC在这里初始化Avator和Owner
+	// Character这里也有了ASC和AS的指针，同时也有Controller指针（如果是有控制的客户端，其他影子没有的话将不用初始化MVC）
+	
+	// 拿到PlayerState
 	AThe1001stPlayerState* The1001stPlayerState = GetPlayerStateChecked<AThe1001stPlayerState>();
-	//Init
+	// Init
 	The1001stPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(The1001stPlayerState, this);
-	//再赋值给自身
+	// 再赋值给自身
 	AbilitySystemComponent = The1001stPlayerState->GetAbilitySystemComponent();
 	AttributeSet = The1001stPlayerState->GetAttributeSet();
+
+	if (AThe1001stPlayerController* The1001stPlayerController = Cast<AThe1001stPlayerController>(GetController()))
+	{
+		if (AThe1001stHUD* The1001stHUD = Cast<AThe1001stHUD>(The1001stPlayerController->GetHUD()))
+		{
+			The1001stHUD->InitOverlay(The1001stPlayerController, The1001stPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+
+	}
 }
 
 
