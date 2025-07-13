@@ -6,6 +6,11 @@
 #include "UObject/NoExportTypes.h"
 #include "BaseMediator.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthValueChangeSignature, float, NewHealthValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthValueChangeSignature, float, NewMaxHealthValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaValueChangeSignature, float, NewManaValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaValueChangeSignature, float, NewMaxManaValue);
+
 class UAttributeSet;
 class UAbilitySystemComponent;
 
@@ -31,7 +36,7 @@ struct FMediatorParams
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class THE1001ST_API UBaseMediator : public UObject
 {
 	GENERATED_BODY()
@@ -49,4 +54,18 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY(BlueprintReadOnly, Category = "Mediator")
 	TObjectPtr<UAttributeSet> AttributeSet;
+
+public:
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnHealthValueChangeSignature OnHealthValueChanged;
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnMaxHealthValueChangeSignature OnMaxHealthValueChanged;
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnManaValueChangeSignature OnManaValueChanged;
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnMaxManaValueChangeSignature OnMaxManaValueChanged;
+	//π„≤•≥ı º÷µ
+
+	virtual void BroadcastInitialValues();
+	virtual void BindCallbacksToDependencies();
 };

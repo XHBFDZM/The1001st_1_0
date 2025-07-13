@@ -7,45 +7,39 @@
 #include "AbilitySystem/The1001stAbilitySystemComponent.h"
 #include "AbilitySystem/The1001stAttributeSet.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+
 // Sets default values
 AThe1001stEffectActor::AThe1001stEffectActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	SetRootComponent(Mesh);
-	EffectSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
-	EffectSphere->SetupAttachment(GetRootComponent());
+	//Use Scene to as RootComponent
+	SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot")));
 }
 
 // Called when the game starts or when spawned
 void AThe1001stEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	EffectSphere->OnComponentBeginOverlap.AddDynamic(this, &AThe1001stEffectActor::OnOverlap);
-	EffectSphere->OnComponentEndOverlap.AddDynamic(this, &AThe1001stEffectActor::EndOverlap);
 }
 
-void AThe1001stEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AThe1001stEffectActor::ApplyGameplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> UsedGameplayEffectClass)
 {
-	if (IAbilitySystemInterface* AbilitySystemInterface = Cast<IAbilitySystemInterface>(OtherActor))
+	UAbilitySystemComponent* AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	if (!AbilitySystemComponent)
 	{
-		const UThe1001stAttributeSet* The1001stAttributeSet = Cast<UThe1001stAttributeSet>(AbilitySystemInterface->GetAbilitySystemComponent()->GetAttributeSet(UThe1001stAttributeSet::StaticClass()));
-		//The1001stAttributeSet被记录为const，所以我们不能直接修改它的属性，必须通过GE
-		//The1001stAttributeSet->SetHealth(The1001stAttributeSet->GetHealth() + 25.0f);
-		// 
-		//但是现在暂时先这么用
-		UThe1001stAttributeSet* MutableThe1001stAttributeSet = const_cast<UThe1001stAttributeSet*>(The1001stAttributeSet);
-		MutableThe1001stAttributeSet->SetHealth(The1001stAttributeSet->GetHealth() + 25.0f);
-		Destroy();
+		return;
 	}
+	check(UsedGameplayEffectClass);
+
+	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle GameplayEffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(UsedGameplayEffectClass, 1.0f, EffectContextHandle);
+	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
 }
 
-void AThe1001stEffectActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-
-}
 
 

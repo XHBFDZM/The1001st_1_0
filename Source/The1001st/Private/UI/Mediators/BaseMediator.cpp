@@ -13,3 +13,13 @@ void UBaseMediator::SetParams(const FMediatorParams& Params)
 	AbilitySystemComponent = Params.AbilitySystemComponent;
 	AttributeSet = Params.AttributeSet;
 }
+
+void UBaseMediator::BroadcastInitialValues()
+{
+	//We Dont Need to Add Logic InHere
+}
+
+void UBaseMediator::BindCallbacksToDependencies()
+{
+	// also same
+}
