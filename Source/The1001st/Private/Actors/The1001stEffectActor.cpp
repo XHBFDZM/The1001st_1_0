@@ -41,5 +41,35 @@ void AThe1001stEffectActor::ApplyGameplayEffectToTarget(AActor* TargetActor, TSu
 	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
 }
 
+void AThe1001stEffectActor::OnOverlap(AActor* TargetActor)
+{
+	if (InstantGameplayEffectApplyPolicy == EGameplayEffectApplyPolicy::ApplyOnOverlap)
+	{
+		ApplyGameplayEffectToTarget(TargetActor, InstantGameplayEffectClass);
+	}
+
+	if (DurationGameplayEffectApplyPolicy == EGameplayEffectApplyPolicy::ApplyOnOverlap)
+	{
+		ApplyGameplayEffectToTarget(TargetActor, DurationGameplayEffectClass);
+	}
+
+	if (InfiniteGameplayEffectApplyPolicy == EGameplayEffectApplyPolicy::ApplyOnOverlap)
+	{
+		ApplyGameplayEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
+	}
+}
+void AThe1001stEffectActor::EndOverlap(AActor* TargetActor)
+{
+	if (InstantGameplayEffectApplyPolicy == EGameplayEffectApplyPolicy::ApplyOnEndOverlap)
+	{
+		ApplyGameplayEffectToTarget(TargetActor, InstantGameplayEffectClass);
+	}
+
+	if (InfiniteGameplayEffectRemovePolicy == EGameplayEffectRemovePolicy::RemoveOnEndOverlap)
+	{
+		
+	}
+}
+
 
 
