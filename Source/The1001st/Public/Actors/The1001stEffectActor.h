@@ -4,8 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
+#include "ActiveGameplayEffectHandle.h"
+
 #include "The1001stEffectActor.generated.h"
 
+class UAbilitySystemComponent;
 class UGameplayEffect;
 
 UENUM(BlueprintType)
@@ -65,4 +69,10 @@ protected:
 protected:
 	UFUNCTION(BlueprintCallable, Category = "Effect")
 	void ApplyGameplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> UsedGameplayEffectClass);
+public:
+	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveHandleToASCMap;
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect")
+	float EffectLevel = 1.0f;
 };

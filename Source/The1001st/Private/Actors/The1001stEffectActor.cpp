@@ -9,6 +9,8 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 
+#include "GameplayEffect.h"
+
 // Sets default values
 AThe1001stEffectActor::AThe1001stEffectActor()
 {
@@ -34,11 +36,22 @@ void AThe1001stEffectActor::ApplyGameplayEffectToTarget(AActor* TargetActor, TSu
 	}
 	check(UsedGameplayEffectClass);
 
+	//简单来说，TargetASC->Context句柄->EffectSpec句柄->EffectSpec->Effect
+
 	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
 	EffectContextHandle.AddSourceObject(this);
 
-	FGameplayEffectSpecHandle GameplayEffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(UsedGameplayEffectClass, 1.0f, EffectContextHandle);
-	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
+
+	FGameplayEffectSpecHandle GameplayEffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(UsedGameplayEffectClass, EffectLevel, EffectContextHandle);
+
+	//This apply will return an active GameplayEffectHandle, 我可以 store it
+	const FActiveGameplayEffectHandle ActiveGameplayEffectHandle = AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
+
+	//如果是Inifinate的Effect，Need to store it through a map
+	if (GameplayEffectSpecHandle.Data.Get()->Def.Get()->DurationPolicy == EGameplayEffectDurationType::Infinite)
+	{
+		ActiveHandleToASCMap.Add(ActiveGameplayEffectHandle, AbilitySystemComponent);
+	}
 }
 
 void AThe1001stEffectActor::OnOverlap(AActor* TargetActor)
@@ -65,9 +78,28 @@ void AThe1001stEffectActor::EndOverlap(AActor* TargetActor)
 		ApplyGameplayEffectToTarget(TargetActor, InstantGameplayEffectClass);
 	}
 
+	// Policy did is RemoveOnEndOverlap
 	if (InfiniteGameplayEffectRemovePolicy == EGameplayEffectRemovePolicy::RemoveOnEndOverlap)
 	{
-		
+		//ASC 确实Exist
+		UAbilitySystemComponent* AbilitySystemComponent = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+		if (AbilitySystemComponent)
+		{
+			//移除Effect first,then 移除 Map's key
+			TArray<FActiveGameplayEffectHandle> ActivehHandlesNeedToRemove;
+			for (TTuple<FActiveGameplayEffectHandle, UAbilitySystemComponent*> CurTuple : ActiveHandleToASCMap)
+			{
+				if (AbilitySystemComponent == CurTuple.Value)
+				{
+					ActivehHandlesNeedToRemove.Add(CurTuple.Key);
+					AbilitySystemComponent->RemoveActiveGameplayEffect(CurTuple.Key,1);
+				}
+			}
+			for (FActiveGameplayEffectHandle CurActiveHandle: ActivehHandlesNeedToRemove)
+			{
+				ActiveHandleToASCMap.FindAndRemoveChecked(CurActiveHandle);
+			}
+		}
 	}
 }
 
