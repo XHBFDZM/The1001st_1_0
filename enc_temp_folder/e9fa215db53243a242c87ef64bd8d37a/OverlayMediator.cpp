@@ -43,6 +43,7 @@ void UOverlayMediator::BindCallbacksToDependencies()
 					{
 						OnMessageTagSignature.Broadcast(*RowData);
 					}
+					
 				}
 				
 			}

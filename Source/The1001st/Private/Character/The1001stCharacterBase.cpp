@@ -25,4 +25,9 @@ UAbilitySystemComponent* AThe1001stCharacterBase::GetAbilitySystemComponent() co
 	return AbilitySystemComponent;
 }
 
+void AThe1001stCharacterBase::InitAbilityInfo()
+{
+
+}
+
 

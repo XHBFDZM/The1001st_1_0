@@ -9,9 +9,17 @@
 /**
  * 
  */
+DECLARE_MULTICAST_DELEGATE_OneParam(FGameplayTagsDelegate, const FGameplayTagContainer& Container);
+
 UCLASS()
 class THE1001ST_API UThe1001stAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
+public:
+	//已经初始化好了，可以绑定委托了
+	void AbilitySystemComponentAlreadyInitInfo();
+
+	FGameplayTagsDelegate GameplayTagsDelegate;
+public:
+	void OnEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& GameplayEffectSpec, FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
 };

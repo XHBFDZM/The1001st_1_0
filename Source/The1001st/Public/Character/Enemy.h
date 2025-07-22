@@ -23,4 +23,6 @@ public:
 	bool bHighlighted = false;
 protected:
 	virtual void BeginPlay() override;
+private:
+	void InitAbilityInfo() override;
 };

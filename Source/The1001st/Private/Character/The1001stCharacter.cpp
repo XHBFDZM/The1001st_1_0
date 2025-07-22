@@ -100,6 +100,9 @@ void AThe1001stCharacter::InitAbilityInfo()
 	AThe1001stPlayerState* The1001stPlayerState = GetPlayerStateChecked<AThe1001stPlayerState>();
 	// Init
 	The1001stPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(The1001stPlayerState, this);
+	// 通知信息已经初始化好
+	UThe1001stAbilitySystemComponent* The1001stAbilitySystemComponent = Cast<UThe1001stAbilitySystemComponent>(The1001stPlayerState->GetAbilitySystemComponent());
+	The1001stAbilitySystemComponent->AbilitySystemComponentAlreadyInitInfo();
 	// 再赋值给自身
 	AbilitySystemComponent = The1001stPlayerState->GetAbilitySystemComponent();
 	AttributeSet = The1001stPlayerState->GetAttributeSet();
