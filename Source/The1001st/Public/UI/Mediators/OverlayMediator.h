@@ -40,11 +40,6 @@ class THE1001ST_API UOverlayMediator : public UBaseMediator
 public:
 	void BroadcastInitialValues() override;
 	void BindCallbacksToDependencies() override;
-public:
-	void HealthChanged(const FOnAttributeChangeData& Data);
-	void MaxHealthChanged(const FOnAttributeChangeData& Data);
-	void ManaChanged(const FOnAttributeChangeData& Data);
-	void MaxManaChanged(const FOnAttributeChangeData& Data);
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UDataTable> MessageDataTable;

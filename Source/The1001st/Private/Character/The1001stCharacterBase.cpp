@@ -30,4 +30,20 @@ void AThe1001stCharacterBase::InitAbilityInfo()
 
 }
 
+void AThe1001stCharacterBase::InitializePrimaryAttributes() const
+{
+	UAbilitySystemComponent* CurAbilitySystemComponent = GetAbilitySystemComponent();
+	if (CurAbilitySystemComponent)
+	{
+		FGameplayEffectContextHandle GameplayEffectContextHandle = CurAbilitySystemComponent->MakeEffectContext();
+		GameplayEffectContextHandle.AddSourceObject(this);
+
+		FGameplayEffectSpecHandle GameplayEffectSpecHandle = CurAbilitySystemComponent->MakeOutgoingSpec(PrimaryAttributeSet, 1.0f, GameplayEffectContextHandle);
+		FGameplayEffectSpec *GameplayEffectSpec = GameplayEffectSpecHandle.Data.Get();
+
+		CurAbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpec, CurAbilitySystemComponent);
+	}
+}
+
+
 

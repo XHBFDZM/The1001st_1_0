@@ -76,7 +76,7 @@ void AThe1001stCharacter::BeginPlay()
 void AThe1001stCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
-	//在控制器控制Pawn之后，开始InitAbilityInfo
+	//for servor ,在控制器控制Pawn之后，开始InitAbilityInfo
 
 	//InitAbilityActorInfo for the Server
 	InitAbilityInfo();
@@ -106,6 +106,9 @@ void AThe1001stCharacter::InitAbilityInfo()
 	// 再赋值给自身
 	AbilitySystemComponent = The1001stPlayerState->GetAbilitySystemComponent();
 	AttributeSet = The1001stPlayerState->GetAttributeSet();
+	// 初始化Attribute的值
+	InitializePrimaryAttributes();
+
 
 	if (AThe1001stPlayerController* The1001stPlayerController = Cast<AThe1001stPlayerController>(GetController()))
 	{

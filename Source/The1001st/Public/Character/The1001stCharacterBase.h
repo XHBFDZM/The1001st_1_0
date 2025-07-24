@@ -9,6 +9,7 @@
 
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UGameplayEffect;
 
 UCLASS(Abstract)
 class THE1001ST_API AThe1001stCharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -34,4 +35,9 @@ public:
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 protected:
 	virtual void InitAbilityInfo();
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attibutes")
+	TSubclassOf<UGameplayEffect> PrimaryAttributeSet;
+	void InitializePrimaryAttributes() const;
 };

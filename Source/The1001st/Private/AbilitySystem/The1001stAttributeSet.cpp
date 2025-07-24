@@ -16,18 +16,34 @@ UThe1001stAttributeSet::UThe1001stAttributeSet()
 void UThe1001stAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-	//注册告诉 UE “这个属性要同步”
+	//注册告诉 UE 此变量需要网络复制并通过On_Rep同步给客户端
 	//血条
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Health, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	//蓝条
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Mana, COND_None, REPNOTIFY_Always);
+
+	//Primary
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Strength, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Resilience, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Intelliengence, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Vigor, COND_None, REPNOTIFY_Always);
+
+	//Secondary
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Armor, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, ArmorPenetration, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, BlockChance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, CriticalHitChange, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, CriticalHitDamage, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, CriticalHitResistance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, HealthRegneration, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, ManaRegneration, COND_None, REPNOTIFY_Always);
 }
 
 void UThe1001stAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
 {
-	//需要#include "AbilitySystem/The1001stAbilitySystemComponent.h"
+	//等价于GetOwningAbilitySystemComponent()->AttributeValueChanged.Broadcast(...);
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, Health, OldHealth);
 }
 
@@ -46,6 +62,68 @@ void UThe1001stAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxM
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, MaxMana, OldMaxMana);
 }
+
+void UThe1001stAttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, Strength, OldStrength);
+}
+
+void UThe1001stAttributeSet::OnRep_Intelliengence(const FGameplayAttributeData& OldIntelliengence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, Intelliengence, Intelliengence);
+}
+void UThe1001stAttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, Resilience, OldResilience);
+}
+
+void UThe1001stAttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, Vigor, OldVigor);
+}
+
+
+
+void UThe1001stAttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, Armor, OldArmor);
+}
+
+void UThe1001stAttributeSet::OnRep_ArmorPenetration(const FGameplayAttributeData& OldArmorPenetration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, ArmorPenetration, OldArmorPenetration);
+}
+
+void UThe1001stAttributeSet::OnRep_BlockChance(const FGameplayAttributeData& OldBlockChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, BlockChance, OldBlockChance);
+}
+
+void UThe1001stAttributeSet::OnRep_CriticalHitChange(const FGameplayAttributeData& OldCriticalHitChange) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, CriticalHitChange, OldCriticalHitChange);
+}
+
+void UThe1001stAttributeSet::OnRep_CriticalHitDamage(const FGameplayAttributeData& OldCriticalHitDamage) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, CriticalHitDamage, OldCriticalHitDamage);
+}
+
+void UThe1001stAttributeSet::OnRep_CriticalHitResistance(const FGameplayAttributeData& OldCriticalHitResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, CriticalHitResistance, OldCriticalHitResistance);
+}
+
+void UThe1001stAttributeSet::OnRep_HealthRegnerationh(const FGameplayAttributeData& OldHealthRegneration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, HealthRegneration, OldHealthRegneration);
+}
+
+void UThe1001stAttributeSet::OnRep_ManaRegneration(const FGameplayAttributeData& OldManaRegneration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, ManaRegneration, OldManaRegneration);
+}
+
 
 void UThe1001stAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
@@ -99,6 +177,15 @@ void UThe1001stAttributeSet::SaveGameplayEffectData(const struct FGameplayEffect
 		EffectProperties.TargetAvatorActor = EffectProperties.TargetASC->GetAvatarActor();
 		EffectProperties.TargetController = EffectProperties.TargetASC->AbilityActorInfo.Get()->PlayerController.Get();
 		EffectProperties.TargetCharacter = Cast<ACharacter>(EffectProperties.TargetController->GetPawn());
+	}
+	//Clamp in post is truly work, not pre
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
+	}
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::Clamp(GetMana(), 0.0f, GetMaxMana()));
 	}
 }
 

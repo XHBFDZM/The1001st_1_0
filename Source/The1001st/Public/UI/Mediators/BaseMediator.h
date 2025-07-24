@@ -6,10 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "BaseMediator.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthValueChangeSignature, float, NewHealthValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthValueChangeSignature, float, NewMaxHealthValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaValueChangeSignature, float, NewManaValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaValueChangeSignature, float, NewMaxManaValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnValueChangeSignature, float, NewValue);
 
 class UAttributeSet;
 class UAbilitySystemComponent;
@@ -57,13 +54,13 @@ protected:
 
 public:
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnHealthValueChangeSignature OnHealthValueChanged;
+	FOnValueChangeSignature OnHealthValueChanged;
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnMaxHealthValueChangeSignature OnMaxHealthValueChanged;
+	FOnValueChangeSignature OnMaxHealthValueChanged;
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnManaValueChangeSignature OnManaValueChanged;
+	FOnValueChangeSignature OnManaValueChanged;
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnMaxManaValueChangeSignature OnMaxManaValueChanged;
+	FOnValueChangeSignature OnMaxManaValueChanged;
 	//π„≤•≥ı º÷µ
 
 	virtual void BroadcastInitialValues();
