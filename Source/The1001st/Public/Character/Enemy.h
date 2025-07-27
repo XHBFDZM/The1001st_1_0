@@ -25,4 +25,10 @@ protected:
 	virtual void BeginPlay() override;
 private:
 	void InitAbilityInfo() override;
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character Class Defaults")
+	int32 Level = 1;
+public:
+	int32 GetOwnerLevel() override;
 };

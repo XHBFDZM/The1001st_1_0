@@ -37,12 +37,12 @@ UCLASS(BlueprintType, Blueprintable)
 class THE1001ST_API UBaseMediator : public UObject
 {
 	GENERATED_BODY()
+
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetParams(const FMediatorParams& Params);
 
 protected:
-
 	UPROPERTY(BlueprintReadOnly,Category = "Mediator")
 	TObjectPtr<APlayerController> PlayerController;
 	UPROPERTY(BlueprintReadOnly, Category = "Mediator")
@@ -52,17 +52,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Mediator")
 	TObjectPtr<UAttributeSet> AttributeSet;
 
-public:
-	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnValueChangeSignature OnHealthValueChanged;
-	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnValueChangeSignature OnMaxHealthValueChanged;
-	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnValueChangeSignature OnManaValueChanged;
-	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnValueChangeSignature OnMaxManaValueChanged;
-	//π„≤•≥ı º÷µ
-
+protected:
+	//bind callback first, then breadcast initial value.
+	UFUNCTION(BlueprintCallable)
 	virtual void BroadcastInitialValues();
+	//Before this function is be called, four Params already setted.
 	virtual void BindCallbacksToDependencies();
 };

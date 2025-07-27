@@ -95,57 +95,55 @@ public:
 	UPROPERTY(BlueprintReadOnly,ReplicatedUsing = OnRep_Mana,Category="Vital Attributes")
 	FGameplayAttributeData Mana;
 	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, Mana);
+
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldHealth) const;
 	UFUNCTION()
 	void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
 
 	//Secondary
-	//最大健康
+
+	//护甲,基于韧性
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Armor, Category = "Secondary Attributes")
+	FGameplayAttributeData Armor;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, Armor);
+	//护甲穿透，基于韧性
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ArmorPenetration, Category = "Secondary Attributes")
+	FGameplayAttributeData ArmorPenetration;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, ArmorPenetration);
+	//格挡机会，基于韧性
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_BlockChance, Category = "Secondary Attributes")
+	FGameplayAttributeData BlockChance;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, BlockChance);
+	//暴击几率，基于护甲穿透
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitChance, Category = "Secondary Attributes")
+	FGameplayAttributeData CriticalHitChance;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, CriticalHitChance);
+	//暴击伤害，基于护甲穿透
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitDamage, Category = "Secondary Attributes")
+	FGameplayAttributeData CriticalHitDamage;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, CriticalHitDamage);
+	//暴击抗性，基于护甲
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitResistance, Category = "Secondary Attributes")
+	FGameplayAttributeData CriticalHitResistance;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, CriticalHitResistance);
+	//健康再生，基于活力
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_HealthRegeneration, Category = "Secondary Attributes")
+	FGameplayAttributeData HealthRegeneration;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, HealthRegeneration);
+	//魔力再生，基于智慧
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ManaRegeneration, Category = "Secondary Attributes")
+	FGameplayAttributeData ManaRegeneration;
+	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, ManaRegeneration);
+	//最大健康，基于活力
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category = "Secondary Attributes")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, MaxHealth);
-	//最大魔力
+	//最大魔力，基于智慧
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMana, Category = "Secondary Attributes")
 	FGameplayAttributeData MaxMana;
 	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, MaxMana);
-	//护甲
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Armor, Category = "Primary Attributes")
-	FGameplayAttributeData Armor;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, Armor);
-	//护甲穿透
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ArmorPenetration, Category = "Primary Attributes")
-	FGameplayAttributeData ArmorPenetration;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, ArmorPenetration);
-	//格挡机会
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_BlockChance, Category = "Primary Attributes")
-	FGameplayAttributeData BlockChance;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, BlockChance);
-	//？？
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CritialHitChange, Category = "Primary Attributes")
-	FGameplayAttributeData CriticalHitChange;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, CriticalHitChange);
-	//？？
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitDamage, Category = "Primary Attributes")
-	FGameplayAttributeData CriticalHitDamage;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, CriticalHitDamage);
-	//？？
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitResistance, Category = "Primary Attributes")
-	FGameplayAttributeData CriticalHitResistance;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, CriticalHitResistance);
-	//健康再生
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_HealthRegneration, Category = "Primary Attributes")
-	FGameplayAttributeData HealthRegneration;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, HealthRegneration);
-	//魔力再生
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ManaRegneration, Category = "Primary Attributes")
-	FGameplayAttributeData ManaRegneration;
-	ATTRIBUTE_ACCESSORS(UThe1001stAttributeSet, ManaRegneration);
 
-	UFUNCTION()
-	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
-	UFUNCTION()
-	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
 	UFUNCTION()
 	void OnRep_Armor(const FGameplayAttributeData& OldArmor) const;
 	UFUNCTION()
@@ -153,15 +151,19 @@ public:
 	UFUNCTION()
 	void OnRep_BlockChance(const FGameplayAttributeData& OldBlockChance) const;
 	UFUNCTION()
-	void OnRep_CriticalHitChange(const FGameplayAttributeData& OldCriticalHitChange) const;
+	void OnRep_CriticalHitChance(const FGameplayAttributeData& OldCriticalHitChance) const;
 	UFUNCTION()
 	void OnRep_CriticalHitDamage(const FGameplayAttributeData& OldCriticalHitDamage) const;
 	UFUNCTION()
 	void OnRep_CriticalHitResistance(const FGameplayAttributeData& OldCriticalHitResistance) const;
 	UFUNCTION()
-	void OnRep_HealthRegnerationh(const FGameplayAttributeData& OldHealthRegneration) const;
+	void OnRep_HealthRegeneration(const FGameplayAttributeData& OldHealthRegeneration) const;
 	UFUNCTION()
-	void OnRep_ManaRegneration(const FGameplayAttributeData& OldManaRegneration) const;
+	void OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const;
+	UFUNCTION()
+	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
+	UFUNCTION()
+	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
 
 
 

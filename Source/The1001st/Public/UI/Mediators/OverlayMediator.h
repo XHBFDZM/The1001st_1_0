@@ -37,20 +37,33 @@ UCLASS()
 class THE1001ST_API UOverlayMediator : public UBaseMediator
 {
 	GENERATED_BODY()
+
+public:
+	//OverlayMediator需要订阅的签名
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnValueChangeSignature OnHealthValueChanged;
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnValueChangeSignature OnMaxHealthValueChanged;
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnValueChangeSignature OnManaValueChanged;
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+	FOnValueChangeSignature OnMaxManaValueChanged;
+
 public:
 	void BroadcastInitialValues() override;
 	void BindCallbacksToDependencies() override;
+
+public:
+	//捡东西Message的签名也放在OverlayMediator
+	UPROPERTY(BlueprintAssignable, Category = "GAS|Messages")
+	FOnMessageTagSignature OnMessageTagSignature;
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UDataTable> MessageDataTable;
 private:
 	template<typename T>
 	T* GetRowDataByGameplayTag(UDataTable* DataTable,const FGameplayTag& GameplayTag);
-public:
-	UPROPERTY(BlueprintAssignable, Category = "GAS|Messages")
-	FOnMessageTagSignature OnMessageTagSignature;
 };
-
 template<typename T>
 inline T* UOverlayMediator::GetRowDataByGameplayTag(UDataTable* DataTable, const FGameplayTag& GameplayTag)
 {

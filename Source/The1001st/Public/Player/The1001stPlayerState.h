@@ -9,7 +9,6 @@
 
 class UAbilitySystemComponent;
 class UAttributeSet;
-
 /**
  * 
  */
@@ -19,15 +18,23 @@ class THE1001ST_API AThe1001stPlayerState : public APlayerState, public IAbility
 	GENERATED_BODY()
 public:
 	AThe1001stPlayerState();
+public:
+	void GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const override;
 
 protected:
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
-
 public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
+
+private:
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing = OnRep_LevelChange)
+	int32 Level = 1;
+	UFUNCTION()
+	void OnRep_LevelChange(int32 OldLevel);
+public:
+	int32 GetOwnerLevel();
 };

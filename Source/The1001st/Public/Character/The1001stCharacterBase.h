@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+
+#include "Interaction/CombatInterface.h"
+
 #include "The1001stCharacterBase.generated.h"
 
 class UAbilitySystemComponent;
@@ -12,7 +15,7 @@ class UAttributeSet;
 class UGameplayEffect;
 
 UCLASS(Abstract)
-class THE1001ST_API AThe1001stCharacterBase : public ACharacter, public IAbilitySystemInterface
+class THE1001ST_API AThe1001stCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 
@@ -38,6 +41,11 @@ protected:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attibutes")
-	TSubclassOf<UGameplayEffect> PrimaryAttributeSet;
-	void InitializePrimaryAttributes() const;
+	TSubclassOf<UGameplayEffect> PrimaryAttributeInitialEffect;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attibutes")
+	TSubclassOf<UGameplayEffect> SecondaryAttributeInitialEffect;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attibutes")
+	TSubclassOf<UGameplayEffect> VitalAttributeInitialEffect;
+	void ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffect, float Level) const;
+	void InitializeDefaultAttributes() const;
 };

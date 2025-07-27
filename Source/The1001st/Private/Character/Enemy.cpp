@@ -47,3 +47,8 @@ void AEnemy::InitAbilityInfo()
 	UThe1001stAbilitySystemComponent* The1001stAbilitySystemComponent = Cast<UThe1001stAbilitySystemComponent>(AbilitySystemComponent);
 	The1001stAbilitySystemComponent->AbilitySystemComponentAlreadyInitInfo();
 }
+
+int32 AEnemy::GetOwnerLevel()
+{
+	return Level;
+}

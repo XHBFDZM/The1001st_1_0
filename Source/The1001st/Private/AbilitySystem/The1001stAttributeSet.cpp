@@ -8,9 +8,7 @@
 UThe1001stAttributeSet::UThe1001stAttributeSet()
 {
 	InitHealth(50.0f);
-	InitMaxHealth(100.0f);
 	InitMana(25.0f);
-	InitMaxMana(50.0f);
 }
 
 void UThe1001stAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -34,11 +32,11 @@ void UThe1001stAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, Armor, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, ArmorPenetration, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, BlockChance, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, CriticalHitChange, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, CriticalHitChance, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, CriticalHitDamage, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, CriticalHitResistance, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, HealthRegneration, COND_None, REPNOTIFY_Always);
-	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, ManaRegneration, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, HealthRegeneration, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UThe1001stAttributeSet, ManaRegeneration, COND_None, REPNOTIFY_Always);
 }
 
 void UThe1001stAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
@@ -99,9 +97,9 @@ void UThe1001stAttributeSet::OnRep_BlockChance(const FGameplayAttributeData& Old
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, BlockChance, OldBlockChance);
 }
 
-void UThe1001stAttributeSet::OnRep_CriticalHitChange(const FGameplayAttributeData& OldCriticalHitChange) const
+void UThe1001stAttributeSet::OnRep_CriticalHitChance(const FGameplayAttributeData& OldCriticalHitChance) const
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, CriticalHitChange, OldCriticalHitChange);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, CriticalHitChance, OldCriticalHitChance);
 }
 
 void UThe1001stAttributeSet::OnRep_CriticalHitDamage(const FGameplayAttributeData& OldCriticalHitDamage) const
@@ -114,14 +112,14 @@ void UThe1001stAttributeSet::OnRep_CriticalHitResistance(const FGameplayAttribut
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, CriticalHitResistance, OldCriticalHitResistance);
 }
 
-void UThe1001stAttributeSet::OnRep_HealthRegnerationh(const FGameplayAttributeData& OldHealthRegneration) const
+void UThe1001stAttributeSet::OnRep_HealthRegeneration(const FGameplayAttributeData& OldHealthRegeneration) const
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, HealthRegneration, OldHealthRegneration);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, HealthRegeneration, OldHealthRegeneration);
 }
 
-void UThe1001stAttributeSet::OnRep_ManaRegneration(const FGameplayAttributeData& OldManaRegneration) const
+void UThe1001stAttributeSet::OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const
 {
-	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, ManaRegneration, OldManaRegneration);
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UThe1001stAttributeSet, ManaRegeneration, OldManaRegeneration);
 }
 
 

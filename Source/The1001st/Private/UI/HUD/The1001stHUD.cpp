@@ -6,6 +6,7 @@
 #include "UI/Prefabs/BasePrefab.h"
 
 #include "UI/Mediators/OverlayMediator.h"
+#include "UI/Mediators/AttributeMenuMediator.h"
 
 void AThe1001stHUD::BeginPlay()
 {
@@ -17,6 +18,7 @@ UOverlayMediator* AThe1001stHUD::GetOverlayMediator(const FMediatorParams& Param
 {
 	if (OverlayMediator == nullptr)
 	{
+		check(OverlayMediatorClass);
 		OverlayMediator = NewObject<UOverlayMediator>(this, OverlayMediatorClass);
 		OverlayMediator->SetParams(Params);
 
@@ -27,6 +29,24 @@ UOverlayMediator* AThe1001stHUD::GetOverlayMediator(const FMediatorParams& Param
 	}
 	return OverlayMediator;
 }
+
+UAttributeMenuMediator* AThe1001stHUD::GetAttributeMenuMediator(const FMediatorParams& Params)
+{
+	if (AttributeMenuMediator == nullptr)
+	{
+		check(AttributeMenuMediatorClass);
+		AttributeMenuMediator = NewObject<UAttributeMenuMediator>(this, AttributeMenuMediatorClass);
+		AttributeMenuMediator->SetParams(Params);
+
+		//当Medaiator里的四个参数初始化好以后，绑定AS的委托
+		AttributeMenuMediator->BindCallbacksToDependencies();
+
+		return AttributeMenuMediator;
+	}
+	return AttributeMenuMediator;
+}
+
+
 
 void AThe1001stHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)
 {

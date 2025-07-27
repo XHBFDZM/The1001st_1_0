@@ -52,5 +52,8 @@ protected:
 
 private:
 	void InitAbilityInfo() override;
+
+public:
+	int32 GetOwnerLevel() override;
 };
 

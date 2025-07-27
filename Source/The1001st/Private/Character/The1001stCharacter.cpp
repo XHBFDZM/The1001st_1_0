@@ -107,7 +107,7 @@ void AThe1001stCharacter::InitAbilityInfo()
 	AbilitySystemComponent = The1001stPlayerState->GetAbilitySystemComponent();
 	AttributeSet = The1001stPlayerState->GetAttributeSet();
 	// 初始化Attribute的值
-	InitializePrimaryAttributes();
+	InitializeDefaultAttributes();
 
 
 	if (AThe1001stPlayerController* The1001stPlayerController = Cast<AThe1001stPlayerController>(GetController()))
@@ -118,6 +118,13 @@ void AThe1001stCharacter::InitAbilityInfo()
 		}
 
 	}
+}
+
+int32 AThe1001stCharacter::GetOwnerLevel()
+{
+	AThe1001stPlayerState* The1001stPlayerState = GetPlayerStateChecked<AThe1001stPlayerState>();
+	check(The1001stPlayerState);
+	return The1001stPlayerState->GetOwnerLevel();
 }
 
 

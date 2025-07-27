@@ -30,19 +30,32 @@ void AThe1001stCharacterBase::InitAbilityInfo()
 
 }
 
-void AThe1001stCharacterBase::InitializePrimaryAttributes() const
+void AThe1001stCharacterBase::ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffect, float Level) const
 {
-	UAbilitySystemComponent* CurAbilitySystemComponent = GetAbilitySystemComponent();
-	if (CurAbilitySystemComponent)
+	check(GameplayEffect);
+	if (GameplayEffect)
 	{
-		FGameplayEffectContextHandle GameplayEffectContextHandle = CurAbilitySystemComponent->MakeEffectContext();
-		GameplayEffectContextHandle.AddSourceObject(this);
+		UAbilitySystemComponent* CurAbilitySystemComponent = GetAbilitySystemComponent();
+		if (CurAbilitySystemComponent)
+		{
+			FGameplayEffectContextHandle GameplayEffectContextHandle = CurAbilitySystemComponent->MakeEffectContext();
+			GameplayEffectContextHandle.AddSourceObject(this);
 
-		FGameplayEffectSpecHandle GameplayEffectSpecHandle = CurAbilitySystemComponent->MakeOutgoingSpec(PrimaryAttributeSet, 1.0f, GameplayEffectContextHandle);
-		FGameplayEffectSpec *GameplayEffectSpec = GameplayEffectSpecHandle.Data.Get();
+			FGameplayEffectSpecHandle GameplayEffectSpecHandle = CurAbilitySystemComponent->MakeOutgoingSpec(GameplayEffect, Level, GameplayEffectContextHandle);
+			FGameplayEffectSpec* GameplayEffectSpec = GameplayEffectSpecHandle.Data.Get();
 
-		CurAbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpec, CurAbilitySystemComponent);
+			CurAbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpec, CurAbilitySystemComponent);
+		}
 	}
+}
+
+void AThe1001stCharacterBase::InitializeDefaultAttributes() const
+{
+	ApplyGameplayEffectToSelf(PrimaryAttributeInitialEffect, 1.0f);
+
+	ApplyGameplayEffectToSelf(SecondaryAttributeInitialEffect, 1.0f);
+
+	ApplyGameplayEffectToSelf(VitalAttributeInitialEffect, 1.0f);
 }
 
 
