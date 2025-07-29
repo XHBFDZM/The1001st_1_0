@@ -35,5 +35,5 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Attributes")
 	TArray<FAttributeInformations> AttributeInformations;
 	UFUNCTION()
-	FAttributeInformations FindAttributeInformationThroughTag(const FGameplayTag& AttributeTag, bool bLogIfFind);
+	FAttributeInformations FindAttributeInformationThroughTag(const FGameplayTag& AttributeTag, bool bLogIfNotFind);
 };

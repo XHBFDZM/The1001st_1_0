@@ -3,7 +3,7 @@
 
 #include "Data/DA_AttributeInformations.h"
 
-FAttributeInformations UDA_AttributeInformations::FindAttributeInformationThroughTag(const FGameplayTag& AttributeTag, bool bLogIfFind)
+FAttributeInformations UDA_AttributeInformations::FindAttributeInformationThroughTag(const FGameplayTag& AttributeTag, bool bLogIfNotFind)
 {
 	for (FAttributeInformations& Info : AttributeInformations)
 	{
@@ -13,7 +13,7 @@ FAttributeInformations UDA_AttributeInformations::FindAttributeInformationThroug
 		}
 	}
 	
-	if (bLogIfFind)
+	if (bLogIfNotFind)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Attribute tag '%s' not found in DA_AttributeInformations."), *AttributeTag.ToString());
 	}

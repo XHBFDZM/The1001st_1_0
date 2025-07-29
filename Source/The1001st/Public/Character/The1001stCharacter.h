@@ -55,5 +55,8 @@ private:
 
 public:
 	int32 GetOwnerLevel() override;
+
+public:
+	void InitializeDefaultAbilities() const override;
 };
 

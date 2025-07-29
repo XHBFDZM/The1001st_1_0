@@ -80,6 +80,7 @@ void AThe1001stCharacter::PossessedBy(AController* NewController)
 
 	//InitAbilityActorInfo for the Server
 	InitAbilityInfo();
+	InitializeDefaultAbilities();
 }
 
 void AThe1001stCharacter::OnRep_PlayerState()
@@ -88,6 +89,8 @@ void AThe1001stCharacter::OnRep_PlayerState()
 
 	//InitAbilityActorInfo for the Client
 	InitAbilityInfo();
+	//Init Ability
+	InitializeDefaultAbilities();
 }
 
 void AThe1001stCharacter::InitAbilityInfo()
@@ -116,7 +119,6 @@ void AThe1001stCharacter::InitAbilityInfo()
 		{
 			The1001stHUD->InitOverlay(The1001stPlayerController, The1001stPlayerState, AbilitySystemComponent, AttributeSet);
 		}
-
 	}
 }
 
@@ -125,6 +127,16 @@ int32 AThe1001stCharacter::GetOwnerLevel()
 	AThe1001stPlayerState* The1001stPlayerState = GetPlayerStateChecked<AThe1001stPlayerState>();
 	check(The1001stPlayerState);
 	return The1001stPlayerState->GetOwnerLevel();
+}
+
+void AThe1001stCharacter::InitializeDefaultAbilities() const
+{
+	if (!HasAuthority())
+	{
+		return;
+	}
+	UThe1001stAbilitySystemComponent* The1001stAbilitySystemComponent = Cast<UThe1001stAbilitySystemComponent>(AbilitySystemComponent);
+	The1001stAbilitySystemComponent->ApplyAbilities(InitialAbilities);
 }
 
 

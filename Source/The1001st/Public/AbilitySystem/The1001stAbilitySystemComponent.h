@@ -6,6 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "The1001stAbilitySystemComponent.generated.h"
 
+class UGameplayAbility;
+
 /**
  * 
  */
@@ -19,7 +21,12 @@ public:
 	//已经初始化好了，可以绑定委托了
 	void AbilitySystemComponentAlreadyInitInfo();
 
+public:
 	FGameplayTagsDelegate GameplayTagsDelegate;
+
 public:
 	void OnEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& GameplayEffectSpec, FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
+
+public:
+	void ApplyAbilities(TArray<TSubclassOf<UGameplayAbility>> Abilities);
 };

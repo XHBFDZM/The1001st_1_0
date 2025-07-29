@@ -13,6 +13,7 @@
 class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
+class UGameplayAbility;
 
 UCLASS(Abstract)
 class THE1001ST_API AThe1001stCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
@@ -48,4 +49,9 @@ public:
 	TSubclassOf<UGameplayEffect> VitalAttributeInitialEffect;
 	void ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffect, float Level) const;
 	void InitializeDefaultAttributes() const;
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Ability")
+	TArray<TSubclassOf<UGameplayAbility>> InitialAbilities;
+	virtual void InitializeDefaultAbilities() const;
 };

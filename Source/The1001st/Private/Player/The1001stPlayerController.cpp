@@ -7,6 +7,8 @@
 #include "EnhancedInputComponent.h"
 #include "Interaction/EnemyInterface.h"
 
+#include "Input/The1001stEnhancedInputComponent.h"
+
 
 AThe1001stPlayerController::AThe1001stPlayerController()
 {
@@ -42,10 +44,11 @@ void AThe1001stPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
-	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+	UThe1001stEnhancedInputComponent* The1001stEnhancedInputComponent = CastChecked<UThe1001stEnhancedInputComponent>(InputComponent);
 
-	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AThe1001stPlayerController::Move);
+	The1001stEnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AThe1001stPlayerController::Move);
 
+	The1001stEnhancedInputComponent->BindOwnActions(DA_InputConfigs, this, &AThe1001stPlayerController::InputActionPressed, &AThe1001stPlayerController::InputActionHeld, &AThe1001stPlayerController::InputActionReleased);
 }
 
 void AThe1001stPlayerController::Move(const FInputActionValue& Value)
@@ -95,5 +98,29 @@ void AThe1001stPlayerController::CursorTrace()
 	if(NowActor)
 	{
 		NowActor->HighlightActor();
+	}
+}
+
+void AThe1001stPlayerController::InputActionPressed(FGameplayTag GameplayTag)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.5f, FColor::Green, FString::Printf(TEXT("Pressed: %s"), *GameplayTag.ToString()));
+	}
+}
+
+void AThe1001stPlayerController::InputActionHeld(FGameplayTag GameplayTag)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Yellow, FString::Printf(TEXT("Held: %s"), *GameplayTag.ToString()));
+	}
+}
+
+void AThe1001stPlayerController::InputActionReleased(FGameplayTag GameplayTag)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.5f, FColor::Red, FString::Printf(TEXT("Released: %s"), *GameplayTag.ToString()));
 	}
 }

@@ -14,7 +14,6 @@ struct FThe1001stGameplayTags
 public:
 	static FThe1001stGameplayTags & GetThe1001stGameplayTags();
 	static void InitializeThe1001stGameplayTags();
-protected:
 private:
 	static FThe1001stGameplayTags The1001stGameplayTags;
 public:
@@ -33,4 +32,11 @@ public:
 	FGameplayTag Attributes_Secondary_ManaRegeneration;
 	FGameplayTag Attributes_Secondary_MaxHealth;
 	FGameplayTag Attributes_Secondary_MaxMana;
+public:
+	FGameplayTag Input_Dot1;
+	FGameplayTag Input_Dot2;
+	FGameplayTag Input_Dot3;
+	FGameplayTag Input_Dot4;
+	FGameplayTag Input_LMB;
+	FGameplayTag Input_RMB;
 };

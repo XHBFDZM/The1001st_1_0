@@ -2,7 +2,10 @@
 
 
 #include "The1001st/Public/Character/The1001stCharacterBase.h"
+
 #include "AbilitySystem/The1001stAbilitySystemComponent.h"
+
+#include "Abilities/GameplayAbility.h"
 
 AThe1001stCharacterBase::AThe1001stCharacterBase()
 {
@@ -56,6 +59,10 @@ void AThe1001stCharacterBase::InitializeDefaultAttributes() const
 	ApplyGameplayEffectToSelf(SecondaryAttributeInitialEffect, 1.0f);
 
 	ApplyGameplayEffectToSelf(VitalAttributeInitialEffect, 1.0f);
+}
+
+void AThe1001stCharacterBase::InitializeDefaultAbilities() const
+{
 }
 
 

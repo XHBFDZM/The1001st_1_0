@@ -16,13 +16,13 @@ void FThe1001stGameplayTags::InitializeThe1001stGameplayTags()
 {
 	UGameplayTagsManager& GameplayTagsManager = UGameplayTagsManager::Get();
 
-	//Primary Attributes
+	//Primary Attributes Tags
 	The1001stGameplayTags.Attributes_Primary_Strength = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Primary.Strength")), FString(TEXT("Add Physical Damage.")));
 	The1001stGameplayTags.Attributes_Primary_Resilience = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Primary.Resilience")), FString(TEXT("Influence Armor and ArmorPenetration.")));
 	The1001stGameplayTags.Attributes_Primary_Vigor = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Primary.Vigor")), FString(TEXT("Influence MaxHealth and HealthRegeneration.")));
 	The1001stGameplayTags.Attributes_Primary_Intelliengence = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Primary.Intelliengence")), FString(TEXT("Influence MaxMana and ManaRegeneration.")));
 
-	//Secondary Attributes
+	//Secondary Attributes Tags
 	The1001stGameplayTags.Attributes_Secondary_Armor = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Secondary.Armor")), FString(TEXT("Influence CriticalHit.")));
 	The1001stGameplayTags.Attributes_Secondary_ArmorPenetration = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Secondary.ArmorPenetration")), FString(TEXT("Influence CriticalHit and BlockChance.")));
 	The1001stGameplayTags.Attributes_Secondary_CriticalHitChance = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Secondary.CriticalHitChance")), FString(TEXT("Add CriticalHitChance.")));
@@ -33,4 +33,12 @@ void FThe1001stGameplayTags::InitializeThe1001stGameplayTags()
 	The1001stGameplayTags.Attributes_Secondary_ManaRegeneration = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Secondary.ManaRegeneration")), FString(TEXT("Add ManaRegeneration Value."))); 
 	The1001stGameplayTags.Attributes_Secondary_MaxHealth = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Secondary.MaxHealth")), FString(TEXT("Add MaxHealth.")));
 	The1001stGameplayTags.Attributes_Secondary_MaxMana = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Attributes.Secondary.MaxMana")), FString(TEXT("Add MaxMana.")));
+
+	//Input Tags
+	The1001stGameplayTags.Input_Dot1 = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Input.Dot1")), FString(TEXT("Button Digital One.")));
+	The1001stGameplayTags.Input_Dot2 = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Input.Dot2")), FString(TEXT("Button Digital Two.")));
+	The1001stGameplayTags.Input_Dot3 = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Input.Dot3")), FString(TEXT("Button Digital Three.")));
+	The1001stGameplayTags.Input_Dot4 = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Input.Dot4")), FString(TEXT("Button Digital Four.")));
+	The1001stGameplayTags.Input_LMB = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Input.LMB")), FString(TEXT("Button Mouse Left.")));
+	The1001stGameplayTags.Input_RMB = GameplayTagsManager.AddNativeGameplayTag(FName(TEXT("Input.RMB")), FString(TEXT("Button Mouse Right.")));
 }
