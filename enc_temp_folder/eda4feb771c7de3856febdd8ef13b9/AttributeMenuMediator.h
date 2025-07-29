@@ -3,11 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
 #include "UI/Mediators/BaseMediator.h"
 #include "GameplayTagContainer.h"
 #include "AbilitySystem/The1001stAttributeSet.h"
-
 #include "AttributeMenuMediator.generated.h"
 
 class UDA_AttributeInformations;

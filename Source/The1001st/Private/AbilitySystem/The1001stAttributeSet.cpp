@@ -5,10 +5,34 @@
 
 #include "Net/UnrealNetwork.h"
 
+#include "The1001stGameplayTags.h"
+
 UThe1001stAttributeSet::UThe1001stAttributeSet()
 {
-	InitHealth(50.0f);
-	InitMana(25.0f);
+	
+	const FThe1001stGameplayTags& The1001stGameplayTags = FThe1001stGameplayTags::GetThe1001stGameplayTags();
+
+	//template <typename RetValType, typename... ParamTypes, typename UserPolicy, typename... VarTypes>
+	// 
+	//这里不加&也可以，穿的函数名会隐式转换成函数本体指针
+	//
+	//Primary Attribute
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Primary_Strength, &GetIntelliengenceAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Primary_Resilience, &GetResilienceAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Primary_Intelliengence, &GetIntelliengenceAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Primary_Vigor, &GetVigorAttribute);
+
+	//Secondary Attribute
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_Armor, &GetArmorAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_ArmorPenetration, &GetArmorPenetrationAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_BlockChance, &GetBlockChanceAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_CriticalHitChance, &GetCriticalHitChanceAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_CriticalHitDamage, &GetCriticalHitDamageAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_CriticalHitResistance, &GetCriticalHitResistanceAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_HealthRegeneration, &GetHealthRegenerationAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_ManaRegeneration, &GetManaRegenerationAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_MaxHealth, &GetMaxHealthAttribute);
+	GameplayTagToAttributeSignatureMap.Add(The1001stGameplayTags.Attributes_Secondary_MaxMana, &GetMaxManaAttribute);
 }
 
 void UThe1001stAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

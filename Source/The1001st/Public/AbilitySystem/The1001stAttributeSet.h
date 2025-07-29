@@ -10,6 +10,8 @@
 #include "GameplayEffectExtension.h"
 #include "GameFramework/Character.h"
 
+#include "GameplayTagContainer.h"
+
 #include "The1001stAttributeSet.generated.h"
 
  #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -17,6 +19,8 @@
 		GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 		GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 		GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+
+//DECLARE_DELEGATE_RetVal(FGameplayAttribute, FAttributeSignature)
 /**
  * 
  */
@@ -47,11 +51,18 @@ struct FEffectProperties {
 	FGameplayEffectContextHandle EffectContextHandle;
 };
 
+template<typename T>
+using AttributeFuncPointer = TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
 
 UCLASS()
 class THE1001ST_API UThe1001stAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
+public:
+	//TMap<FGameplayTag, TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr> GameplayTagToAttributeSignatureMap;
+	//TMap<FGameplayTag, FGameplayAttribute(*)()> GameplayTagToAttributeSignatureMap;
+	TMap<FGameplayTag, AttributeFuncPointer<FGameplayAttribute()>> GameplayTagToAttributeSignatureMap;
+
 public:
 	UThe1001stAttributeSet();
 
@@ -164,7 +175,6 @@ public:
 	void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
 	UFUNCTION()
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
-
 
 
 public:
