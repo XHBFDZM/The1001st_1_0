@@ -13,5 +13,7 @@ UCLASS()
 class THE1001ST_API UBaseGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
-	
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	FGameplayTag SetupInputTag;
 };

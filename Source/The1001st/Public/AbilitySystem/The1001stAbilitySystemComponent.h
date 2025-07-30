@@ -27,6 +27,12 @@ public:
 public:
 	void OnEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& GameplayEffectSpec, FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
 
+/*初始应用SetupAbility*/
 public:
-	void ApplyAbilities(TArray<TSubclassOf<UGameplayAbility>> Abilities);
+	void ApplySetupAbilities(TArray<TSubclassOf<UGameplayAbility>> Abilities);
+
+/*根据Input开关Ability*/
+public:
+	void InputAbilityHeld(const FGameplayTag& GameplayTag);
+	void InputAbilityReleased(const FGameplayTag& GameplayTag);
 };

@@ -136,7 +136,7 @@ void AThe1001stCharacter::InitializeDefaultAbilities() const
 		return;
 	}
 	UThe1001stAbilitySystemComponent* The1001stAbilitySystemComponent = Cast<UThe1001stAbilitySystemComponent>(AbilitySystemComponent);
-	The1001stAbilitySystemComponent->ApplyAbilities(InitialAbilities);
+	The1001stAbilitySystemComponent->ApplySetupAbilities(InitialAbilities);
 }
 
 

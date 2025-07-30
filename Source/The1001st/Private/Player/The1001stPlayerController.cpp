@@ -9,6 +9,9 @@
 
 #include "Input/The1001stEnhancedInputComponent.h"
 
+#include "AbilitySystem/The1001stAbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
+
 
 AThe1001stPlayerController::AThe1001stPlayerController()
 {
@@ -111,16 +114,27 @@ void AThe1001stPlayerController::InputActionPressed(FGameplayTag GameplayTag)
 
 void AThe1001stPlayerController::InputActionHeld(FGameplayTag GameplayTag)
 {
-	if (GEngine)
+	if(!GetASC())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Yellow, FString::Printf(TEXT("Held: %s"), *GameplayTag.ToString()));
+		return;
 	}
+	GetASC()->InputAbilityHeld(GameplayTag);
 }
 
 void AThe1001stPlayerController::InputActionReleased(FGameplayTag GameplayTag)
 {
-	if (GEngine)
+	if (!GetASC())
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 1.5f, FColor::Red, FString::Printf(TEXT("Released: %s"), *GameplayTag.ToString()));
+		return;
 	}
+	GetASC()->InputAbilityReleased(GameplayTag);
+}
+
+UThe1001stAbilitySystemComponent* AThe1001stPlayerController::GetASC()
+{
+	if (!ASC)
+	{
+		ASC = Cast<UThe1001stAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+	}
+	return ASC;
 }
