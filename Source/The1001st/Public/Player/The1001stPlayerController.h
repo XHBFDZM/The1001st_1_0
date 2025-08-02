@@ -20,6 +20,7 @@ struct FInputActionValue;
 
 class UThe1001stAbilitySystemComponent;
 
+class USplineComponent;
 
 UCLASS()
 class THE1001ST_API AThe1001stPlayerController : public APlayerController
@@ -40,11 +41,12 @@ private:
 
 	void Move(const FInputActionValue& Value);
 
-/*用作储存Mouse拿到的敌人转换来的接口*/
+/*用作储存Mouse拿到的敌人转换来的接口,并让其对方高亮而已*/
 private:
 	void CursorTrace();
 	IEnemyInterface* CurActor;
-	IEnemyInterface* NowActor;
+	IEnemyInterface* PreActor;
+	FHitResult HitResult;
 
 /*用来触发GameplayAbility的输入绑定函数，每个和Input有关的Ability都会在增强输入组件绑定一个GaemplayTag，故传入GameplayTag来做映射*/
 private:
@@ -60,4 +62,21 @@ public:
 public:
 	TObjectPtr<UThe1001stAbilitySystemComponent> ASC = nullptr;
 	UThe1001stAbilitySystemComponent* GetASC();
+
+/*仅长按移动*/
+private:
+	bool bHasTarget = false;
+/*增加自动移动，需要时间计量和目的地存储*/
+private:
+	bool bAutoRun = false;
+	float HeldDurationTime = 0.0f;
+	float LongPressTimeLimit = 0.5f;
+	FVector CashedDestination = FVector(0.0f);
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Move")
+	USplineComponent* SplineComponent;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Move")
+	float MoveRediusLimit = 50.0f;
+private:
+	void AutoRun();
 };

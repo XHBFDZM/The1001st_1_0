@@ -7,6 +7,8 @@
 
 #include "Abilities/GameplayAbility.h"
 
+#include "AbilitySystem/The1001stAttributeSet.h"
+
 AThe1001stCharacterBase::AThe1001stCharacterBase()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -23,6 +25,12 @@ void AThe1001stCharacterBase::BeginPlay()
 	
 }
 
+FVector AThe1001stCharacterBase::GetWeaponSocketLocation()
+{
+	check(Weapon);
+	return Weapon->GetSocketLocation(WeaponSocketName);
+}
+
 UAbilitySystemComponent* AThe1001stCharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
@@ -35,7 +43,7 @@ void AThe1001stCharacterBase::InitAbilityInfo()
 
 void AThe1001stCharacterBase::ApplyGameplayEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffect, float Level) const
 {
-	check(GameplayEffect);
+	//check(GameplayEffect);
 	if (GameplayEffect)
 	{
 		UAbilitySystemComponent* CurAbilitySystemComponent = GetAbilitySystemComponent();

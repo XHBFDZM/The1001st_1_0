@@ -7,12 +7,17 @@
 
 void UThe1001stAbilitySystemComponent::AbilitySystemComponentAlreadyInitInfo()
 {
-	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UThe1001stAbilitySystemComponent::OnEffectAppliedToSelf);
+	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UThe1001stAbilitySystemComponent::Client_OnEffectAppliedToSelf);
 }
 
-void UThe1001stAbilitySystemComponent::OnEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& GameplayEffectSpec, FActiveGameplayEffectHandle ActiveGameplayEffectHandle)
+//这里只是广播GE的伤害，用来更新UI，仅在客户端执行是没关系的
+void UThe1001stAbilitySystemComponent::Client_OnEffectAppliedToSelf_Implementation(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& GameplayEffectSpec, FActiveGameplayEffectHandle ActiveGameplayEffectHandle)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnGameplayEffectAppliedToSelf"))
+	UE_LOG(LogTemp, Warning, TEXT("OnGameplayEffectAppliedToSelf"));
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("OnGameplayEffectAppliedToSelf"));
+	}
 	FGameplayTagContainer GameplayContainer;
 	GameplayEffectSpec.GetAllAssetTags(GameplayContainer);
 	GameplayTagsDelegate.Broadcast(GameplayContainer);

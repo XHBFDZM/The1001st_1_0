@@ -25,7 +25,9 @@ public:
 	FGameplayTagsDelegate GameplayTagsDelegate;
 
 public:
-	void OnEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& GameplayEffectSpec, FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
+	//标记为Client与Reliable，表示这个函数会在Server调用，在Client执行，并且可靠(不丢包)
+	UFUNCTION(Client,Reliable)
+	void Client_OnEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& GameplayEffectSpec, FActiveGameplayEffectHandle ActiveGameplayEffectHandle);
 
 /*初始应用SetupAbility*/
 public:
